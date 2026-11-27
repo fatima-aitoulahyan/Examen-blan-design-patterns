@@ -1,5 +1,6 @@
 package org.example.model;
 
+import org.example.observer.NetworkObserver;
 import org.example.state.ConstructionState;
 import org.example.state.NetworkState;
 
@@ -9,6 +10,7 @@ import java.util.List;
 public class NeuralNetwork {
 
     private List<Layer> layers = new ArrayList<>();
+    private List<NetworkObserver> observers = new ArrayList<>();
 
     private NetworkState state =
             new ConstructionState();
@@ -18,6 +20,7 @@ public class NeuralNetwork {
         System.out.println(
                 "Nouvel état : " + state.getName()
         );
+        notifyObservers();
     }
 
     public void train() {
@@ -57,5 +60,20 @@ public class NeuralNetwork {
     }
     public void executeFit() {
         // Logique de fitting du réseau
+    }
+    public void addObserver(NetworkObserver observer) {
+        observers.add(observer);
+    }
+
+    // Supprimer un observateur
+    public void removeObserver(NetworkObserver observer) {
+        observers.remove(observer);
+    }
+
+    // Notifier tous les observateurs
+    private void notifyObservers() {
+        for (NetworkObserver observer : observers) {
+            observer.update(state.getName());
+        }
     }
 }
