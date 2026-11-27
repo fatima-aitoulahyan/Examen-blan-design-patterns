@@ -7,14 +7,14 @@ public class ExecutedState implements NetworkState {
     @Override
     public void train(NeuralNetwork network) {
         network.setState(new TrainingState());
+        network.runTraining();
+        network.setState(new TrainedState());
     }
 
     @Override
-    public void fit(NeuralNetwork network,
-                    double[][] inputs,
-                    double[][] expectedOutputs) {
+    public void fit(NeuralNetwork network, double[][] inputs, double[][] expectedOutputs) {
         network.setState(new FittingState());
-        network.executeFit();
+        network.executeFit(inputs, expectedOutputs);
         network.setState(new ExecutedState());
     }
 
@@ -24,7 +24,5 @@ public class ExecutedState implements NetworkState {
     }
 
     @Override
-    public String getName() {
-        return "Executed";
-    }
+    public String getName() { return "EXECUTED"; }
 }

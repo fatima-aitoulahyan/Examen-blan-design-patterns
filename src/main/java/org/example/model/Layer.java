@@ -16,4 +16,13 @@ public abstract class Layer {
     }
 
     public abstract double[] forward(double[] input);
+
+    /** Calcul commun aux couches cachée et de sortie */
+    protected double[] computeOutputs() {
+        double[] outputs = new double[neurons.size()];
+        for (int i = 0; i < neurons.size(); i++) {
+            outputs[i] = neurons.get(i).calculate();
+        }
+        return outputs;
+    }
 }
