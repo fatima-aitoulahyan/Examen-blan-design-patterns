@@ -1,4 +1,44 @@
 package org.example.model;
-
 public class Connection {
+
+    private double weight;
+    private final Neuron source;
+    private final Neuron destination;
+
+    public Connection(
+            Neuron source,
+            Neuron destination,
+            double weight) {
+
+        if (weight < 0 || weight > 1) {
+            throw new IllegalArgumentException(
+                    "Le poids doit être entre 0 et 1"
+            );
+        }
+
+        this.source = source;
+        this.destination = destination;
+        this.weight = weight;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(double weight) {
+        if (weight < 0 || weight > 1) {
+            throw new IllegalArgumentException(
+                    "Poids invalide"
+            );
+        }
+        this.weight = weight;
+    }
+
+    public Neuron getSource() {
+        return source;
+    }
+
+    public Neuron getDestination() {
+        return destination;
+    }
 }
